@@ -2,21 +2,18 @@ const express = require('express')
 const app = express()
 
 const discord = require('discord.js')
-const dotenv = require('dotenv')
-dotenv.config()
-
+//const dotenv = require('dotenv')
+//dotenv.config()
 
 app.listen(3000, () => {
 
-  console.log('Project is running!')
+    console.log('Project is running!')
 })
-
 
 app.get('/', (req, res) => {
-
-  res.send('Hello World!')
+    
+    res.send('Hello World!')
 })
-
 
 const client = new discord.Client({
 
@@ -33,7 +30,6 @@ client.on('ready', () => {
     console.log("Bot Ready")
 })
 
-
 //COMMAND HANDLER
 const fs = require('fs');
 
@@ -49,9 +45,7 @@ for (file of commands)
     client.commands.set(command.name, command)
 }
 
-
 const prefix = '-';
-
 
 //HELP
 client.on('messageCreate', (message) =>
@@ -70,7 +64,6 @@ client.on('messageCreate', (message) =>
     }
 })
 
-
 //PING PONG
 client.on('messageCreate', (message) => {
 
@@ -87,7 +80,6 @@ client.on('messageCreate', (message) => {
     }
 })
 
-
 //AVATAR
 client.on('messageCreate', (message) => {
 
@@ -103,41 +95,6 @@ client.on('messageCreate', (message) => {
         client.commands.get('avatar').execute(message, args, discord)
     }
 })
-
-
-//TAG
-client.on('messageCreate', (message) => {
-
-    if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
-
-    const commandBody = message.content.slice(prefix.length);
-    const args = commandBody.split(' ');
-    const command = args.shift().toLowerCase();
-
-    if (command == 'tag') {
-        
-        client.commands.get('tag').execute(message, args, discord)
-    }
-})
-
-
-//MEMBER UPDATE
-client.on('guildMemberUpdate', (oldMem, newMem) => {
-
-    if (oldMem.nickname !== newMem.nickname) {
-
-        client.commands.get('memberUpdate').execute(oldMem, newMem, discord)
-    }
-})
-
-
-//CHANNEL CREATE
-client.on('channelCreate', (channel) => {
-
-    client.commands.get('channelCreate').execute(channel)
-})
-
 
 //MEMBERCOUNT
 client.on('messageCreate', (message) => {
@@ -189,7 +146,6 @@ client.on('messageCreate', (message) => {
     }
 })
 
-
 //WARN
 client.on('messageCreate', (message) => {
 
@@ -204,7 +160,6 @@ client.on('messageCreate', (message) => {
         client.commands.get('warn').execute(message, args, discord)
     }
 })
-
 
 //PURGE
 client.on('messageCreate', (message) => {
@@ -221,63 +176,13 @@ client.on('messageCreate', (message) => {
     }
 })
 
-
-//ANNOUNCE
-client.on('messageCreate', (message) => {
-
-    if (message.author.bot) return
-    if (!message.content.startsWith(prefix)) return
-
-    let args = message.content.slice(prefix.length).split(' ')
-    let command = args.shift().toLowerCase()
-
-    if (command == 'announce') {
-        
-        client.commands.get('announce').execute(message, args, discord)
-    }
-})
-
-
-//MODMAIL
-client.on('messageCreate', (message) => {
-
-    if (message.author.bot) return
-    if (!message.content.startsWith(prefix)) return
-
-    const args = message.content.slice(prefix.length).split(' ')
-    const command = args.shift().toLowerCase()
-
-    if (command == 'modmail') {
-        
-        client.commands.get('modmail').execute(message, args, discord)
-    }
-})
-
-
-//SUPPORT
-client.on('messageCreate', (message) => {
-
-    if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
-
-    const commandBody = message.content.slice(prefix.length);
-    const args = commandBody.split(' ');
-    const command = args.shift().toLowerCase();
-
-    if (command == 'support') {
-        
-        client.commands.get('support').execute(message, args, discord)
-    }
-})
-
-
 client.login(process.env.TOKEN).then(() => {
 
     client.user.setPresence({
 
         activities: [{
 
-            name: 'C and C++',
+            name: 'Deleting system32',
             type: 'PLAYING'
         }],
         status: 'online'
